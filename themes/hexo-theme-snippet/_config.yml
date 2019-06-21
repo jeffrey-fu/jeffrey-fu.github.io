@@ -102,11 +102,11 @@ arch_config:
 
 ## 标签云设置
 tagcloud:
-  tag3d: false
+  tag3d: true
   textColour: '#444'
   outlineMethod: 'block'
   outlineColour: '#FFDAB9'
-  interval: 30
+  interval: 50
   freezeActive: true
   frontSelect: true
   reverse: true
