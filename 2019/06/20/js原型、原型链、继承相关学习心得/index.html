@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="blog">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -35,10 +35,10 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
     <!--Title-->
 
 
-<title>js原型、原型链、继承相关学习心得 | blog</title>
+<title>js原型、原型链、继承相关学习心得 | jeffrey&#39;s blog</title>
 
 
-    <link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
 
 
     <link rel="icon" href="/favicon.ico">
@@ -96,7 +96,7 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
                     <span class="sr-only"></span>
                         <i class="fa fa-bars"></i>
                     </span>
-                    <a class="navbar-brand" href="http://yoursite.com">blog</a>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
@@ -206,7 +206,7 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
 <img src="/2019/06/20/js原型、原型链、继承相关学习心得/es6-inherit.png" title="es6-inherit">
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Super</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.xxx = <span class="string">'hello world!'</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  sayHello() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.xxx);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Super</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sonInstance = <span class="keyword">new</span> Son();</span><br><span class="line"><span class="built_in">console</span>.log(sonInstance.xxx); <span class="comment">// 'hello world!';</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>ES6继承和原型链式继承还是有本质区别的，ES6中 <code>Son</code> 类实例是自己本身拥有了xxx属性的（<a href="#调用父类构造函数继承">ES5的调用父类构造函数继承</a>）</li>
+<li>ES6继承和原型链式继承还是有本质区别的，ES6中 <code>Son</code> 类实例是自己本身拥有了xxx属性的，因为在子类的<code>constructor</code>构造函数中运行<code>super()</code>方法调用了父类构造函数（<a href="#调用父类构造函数继承">ES5的调用父类构造函数继承</a>）</li>
 <li>ES6中方法都是不可枚举的，<code>Son</code> 类实例调用 <code>sayHello</code> 方法和原型式继承原理类似</li>
 <li>ES5中构造函数是function函数本身，而ES6中构造函数是 <code>constructor</code> 函数</li>
 <li>关于ES6 <code>class</code> 可以重开一篇博客了, 先推荐阅读两篇文章<ul>
@@ -217,6 +217,13 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
 </li>
 </ul>
 <a href="http://keenwon.com/1524.html" title="目前无法访问了..." target="_blank" rel="noopener">以上图片引用自keenwon.com</a>
+<h4 id="实现ES6的class语法（2019-06-26·补充）"><a href="#实现ES6的class语法（2019-06-26·补充）" class="headerlink" title="实现ES6的class语法（2019-06-26·补充）"></a>实现ES6的<code>class</code>语法（2019-06-26·补充）</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params">subType, superType</span>) </span>&#123;</span><br><span class="line">  subType.prototype = <span class="built_in">Object</span>.create(superType.prototype, &#123;</span><br><span class="line">    <span class="keyword">constructor</span>: &#123;</span><br><span class="line">      enumerable: <span class="literal">false</span>,</span><br><span class="line">      configurable: <span class="literal">true</span>,</span><br><span class="line">      writable: <span class="literal">true</span>,</span><br><span class="line">      value: subType,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Object</span>.setPrototypeOf(subType, superType);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><ul>
+<li>ES6 的 class 内部是基于寄生组合式继承，它是目前最理想的继承方式，通过 Object.create 方法创造一个空对象，并将这个空对象继承 Object.create 方法的参数，再让子类（subType）的原型对象等于这个空对象，就可以实现子类实例的原型等于这个空对象，而这个空对象的原型又等于父类原型对象（superType.prototype）的继承关系</li>
+<li>而 Object.create 支持第二个参数，即给生成的空对象定义属性和属性描述符/访问器描述符，我们可以给这个空对象定义一个 constructor 属性更加符合默认的继承行为，同时它是不可枚举的内部属性（enumerable:false）</li>
+<li>而 ES6 的 class 允许子类继承父类的静态方法和静态属性，而普通的寄生组合式继承只能做到实例与实例之间的继承，对于类与类之间的继承需要额外定义方法，这里使用 Object.setPrototypeOf 将 superType 设置为 subType 的原型，从而能够从父类中继承静态方法和静态属性</li>
+</ul>
+<footer><strong>yeyan1996</strong><cite><a href="https://juejin.im/post/5cef46226fb9a07eaf2b7516#heading-9" target="_blank" rel="noopener">一个合格的中级前端工程师必须要掌握的28个JavaScript技巧</a></cite></footer></blockquote>
 <h3 id="ES5实现继承的其它方式"><a href="#ES5实现继承的其它方式" class="headerlink" title="ES5实现继承的其它方式"></a>ES5实现继承的其它方式</h3><h4 id="调用父类构造函数继承"><a href="#调用父类构造函数继承" class="headerlink" title="调用父类构造函数继承"></a>调用父类构造函数继承</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params">xxx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.xxx = xxx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Super.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.xxx);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Super.call(<span class="keyword">this</span>, <span class="string">'hello world!'</span>); <span class="comment">// 调用父类构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sonInstance = <span class="keyword">new</span> Son();</span><br><span class="line"><span class="built_in">console</span>.log(sonInstance.xxx); <span class="comment">// 'hello world!';</span></span><br><span class="line">sonInstance.sayHello(); <span class="comment">// TypeError: sonInstance.sayHello is not a function</span></span><br></pre></td></tr></table></figure>
 <p>特点：</p>
 <ul>
@@ -284,6 +291,11 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
 
 <div class="article-nav prev-next-wrap clearfix">
     
+        <a href="/2019/06/26/js执行上下文、词法作用域、块级作用域相关学习/" class="pre-post btn btn-default" title='js执行上下文、词法作用域、块级作用域相关学习'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">js执行上下文、词法作用域、块级作用域相关学习</span>
+        </a>
+    
     
         <a href="/2019/06/18/前端面试必考题Promise的源码解析/" class="next-post btn btn-default" title='前端面试必考题Promise的源码解析'>
             <span class="hidden-lg">下一篇</span>
@@ -304,8 +316,8 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
         new Valine({
             av: AV,
             el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
             placeholder: '说点什么吧',
             notify: false,
             verify: true,
@@ -330,7 +342,7 @@ js基本数据类型和引用数据类型（基本数据类型有： null, undef
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识点："><span class="toc-text">前置知识点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引生思考点"><span class="toc-text">引生思考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#js原型、原型链基本概念"><span class="toc-text">js原型、原型链基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ES5-和-ES6-继承的区别"><span class="toc-text">ES5 和 ES6 继承的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES5实现继承的其它方式"><span class="toc-text">ES5实现继承的其它方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用父类构造函数继承"><span class="toc-text">调用父类构造函数继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组合继承"><span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寄生组合继承"><span class="toc-text">寄生组合继承</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整的原型图"><span class="toc-text">完整的原型图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识点："><span class="toc-text">前置知识点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引生思考点"><span class="toc-text">引生思考点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#js原型、原型链基本概念"><span class="toc-text">js原型、原型链基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ES5-和-ES6-继承的区别"><span class="toc-text">ES5 和 ES6 继承的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现ES6的class语法（2019-06-26·补充）"><span class="toc-text">实现ES6的class语法（2019-06-26·补充）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES5实现继承的其它方式"><span class="toc-text">ES5实现继承的其它方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用父类构造函数继承"><span class="toc-text">调用父类构造函数继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组合继承"><span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寄生组合继承"><span class="toc-text">寄生组合继承</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整的原型图"><span class="toc-text">完整的原型图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
         
     </div>
 </aside>
