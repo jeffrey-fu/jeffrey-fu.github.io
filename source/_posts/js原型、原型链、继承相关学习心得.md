@@ -3,7 +3,7 @@ title: js原型、原型链、继承相关学习心得
 date: 2019-06-20 11:24:22
 categories: font-end
 tags: [JavaScript, 原型, 继承]
-img: /2019/06/20/js原型、原型链、继承相关学习心得/es6-inherit_min.png
+img: /2019/06/20/js原型、原型链、继承相关学习心得/es5-inherit_min.png
 ---
 
 ## 前置知识点：
@@ -73,7 +73,7 @@ class Son extends Super {
 var sonInstance = new Son();
 console.log(sonInstance.xxx); // 'hello world!';
 ```
-- ES6继承和原型链式继承还是有本质区别的，ES6中 `Son` 类实例是自己本身拥有了xxx属性的（[ES5的调用父类构造函数继承](#调用父类构造函数继承)）
+- ES6继承和原型链式继承还是有本质区别的，ES6中 `Son` 类实例是自己本身拥有了xxx属性的，因为在子类的`constructor`构造函数中运行`super()`方法调用了父类构造函数（[ES5的调用父类构造函数继承](#调用父类构造函数继承)）
 - ES6中方法都是不可枚举的，`Son` 类实例调用 `sayHello` 方法和原型式继承原理类似
 - ES5中构造函数是function函数本身，而ES6中构造函数是 `constructor` 函数
 - 关于ES6 `class` 可以重开一篇博客了, 先推荐阅读两篇文章
@@ -81,6 +81,29 @@ console.log(sonInstance.xxx); // 'hello world!';
   - {% link react组件中的constructor和super小知识 https://www.cnblogs.com/faith3/p/9219446.html %}
 
 {% link 以上图片引用自keenwon.com http://keenwon.com/1524.html 目前无法访问了... %}
+
+#### 实现ES6的`class`语法（2019-06-26·补充）
+
+```js
+function inherit(subType, superType) {
+  subType.prototype = Object.create(superType.prototype, {
+    constructor: {
+      enumerable: false,
+      configurable: true,
+      writable: true,
+      value: subType,
+    }
+  });
+
+  Object.setPrototypeOf(subType, superType);
+}
+```
+
+{% blockquote yeyan1996 https://juejin.im/post/5cef46226fb9a07eaf2b7516#heading-9 一个合格的中级前端工程师必须要掌握的28个JavaScript技巧 %}
+- ES6 的 class 内部是基于寄生组合式继承，它是目前最理想的继承方式，通过 Object.create 方法创造一个空对象，并将这个空对象继承 Object.create 方法的参数，再让子类（subType）的原型对象等于这个空对象，就可以实现子类实例的原型等于这个空对象，而这个空对象的原型又等于父类原型对象（superType.prototype）的继承关系
+- 而 Object.create 支持第二个参数，即给生成的空对象定义属性和属性描述符/访问器描述符，我们可以给这个空对象定义一个 constructor 属性更加符合默认的继承行为，同时它是不可枚举的内部属性（enumerable:false）
+- 而 ES6 的 class 允许子类继承父类的静态方法和静态属性，而普通的寄生组合式继承只能做到实例与实例之间的继承，对于类与类之间的继承需要额外定义方法，这里使用 Object.setPrototypeOf 将 superType 设置为 subType 的原型，从而能够从父类中继承静态方法和静态属性
+{% endblockquote %}
 
 ### ES5实现继承的其它方式
 
