@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="JavaScript,类型转换" />
+
+
+    <meta name="description" content="
+为什么会写这篇博客，因为自己类型转换规则实在记不住，直接先看练习题，都没问题就直接pass。
+
+前置知识点：
+js基本数据类型比较的是值是否相等
+js引用数据类型比较的是引用的地址是否相等
+=..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>js隐式类型转换学习总结 | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="js隐式类型转换学习总结">
+            
+	            js隐式类型转换学习总结
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/font-end/">font-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/JavaScript/">JavaScript</a> <a class="tag-link" href="/tags/类型转换/">类型转换</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/06/29</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>为什么会写这篇博客，因为自己类型转换规则实在记不住，直接先看<strong><a href="#练习题">练习题</a></strong>，都没问题就直接pass。</p>
+</blockquote>
+<h2 id="前置知识点："><a href="#前置知识点：" class="headerlink" title="前置知识点："></a>前置知识点：</h2><ul>
+<li>js基本数据类型比较的是值是否相等</li>
+<li>js引用数据类型比较的是引用的地址是否相等</li>
+<li><code>==</code>比较会进行类型转换，<code>===</code>必须类型相同值也相等</li>
+</ul>
+<h2 id="比较类型转换规则："><a href="#比较类型转换规则：" class="headerlink" title="==比较类型转换规则："></a><code>==</code>比较类型转换规则：</h2><blockquote><footer><strong>刘小夕</strong><cite><a href="https://juejin.im/post/5cab0c45f265da2513734390#heading-5" target="_blank" rel="noopener">【面试篇】寒冬求职季之你必须要懂的原生JS(上)</a></cite></footer></blockquote>
+<ul>
+<li><p>首先排除特殊的<code>null</code>，<code>undefined</code>类型：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> ==  <span class="literal">undefined</span>; <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == <span class="literal">undefined</span>; <span class="comment">// false</span></span><br><span class="line"><span class="number">0</span> == <span class="literal">null</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较双方的类型相同，则进行值的判断：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] ==  []; <span class="comment">// false（类型相同但引用的地址不同）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较双方的类型不同，进行类型转换，规则如下：</p>
+<ul>
+<li><p>若其中一方为<code>object</code>且另一方为<code>string</code>、<code>number</code>或者<code>symbol</code>, 将<code>object</code>转为基本类型再进行判断</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] ==  <span class="string">''</span>; <span class="comment">// true</span></span><br><span class="line">[] ==  <span class="number">0</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若其中一方为<code>boolean</code>, 将<code>boolean</code>转为<code>number</code>再进行判断</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> ==  <span class="number">1</span>; <span class="comment">// true</span></span><br><span class="line"><span class="literal">false</span> == <span class="number">0</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若双方类型为<code>string</code>和<code>number</code>, 将<code>string</code>转换成<code>number</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'12'</span> ==  <span class="number">12</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="object转换成基本类型规则："><a href="#object转换成基本类型规则：" class="headerlink" title="object转换成基本类型规则："></a><code>object</code>转换成基本类型规则：</h2><p><code>object</code>这种复杂类型转换成基本类型时，会调用对象的<code>valueOf</code>和<code>toString</code>方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125;.toString(); <span class="comment">// '[object Object]'</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].valueOf(); <span class="comment">// [1,2,3]</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].toString(); <span class="comment">// '1,2,3'</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]); <span class="comment">// '[object Array]' (可判断是否为数组)</span></span><br></pre></td></tr></table></figure>
+<h3 id="valueOf和toString方法调用顺序："><a href="#valueOf和toString方法调用顺序：" class="headerlink" title="valueOf和toString方法调用顺序："></a><code>valueOf</code>和<code>toString</code>方法调用顺序：</h3><blockquote><ol>
+<li>若显示定义了<code>[Symbol.toPrimitive]</code>属性，只调用该接口，若返回的不是基本数据类型，抛出错误。</li>
+<li>默认的调用规则：<ul>
+<li>非<code>Date</code>类型对象，<code>hint</code>是<code>default</code>时，调用顺序为：<code>valueOf</code> &gt;&gt;&gt; <code>toString</code>，即<code>valueOf</code>返回的不是基本数据类型，才会继续调用<code>toString</code>，如果<code>toString</code>返回的还不是基本数据类型，那么抛出错误。</li>
+<li>如果<code>hint</code>是<code>string</code>(Date对象默人的hint是string) ，调用顺序为：<code>toString</code> &gt;&gt;&gt; <code>valueOf</code>，即<code>toString</code>返回的不是基本数据类型，才会继续调用<code>valueOf</code>，如果<code>valueOf</code>返回的还不是基本数据类型，那么抛出错误。</li>
+<li>如果<code>hint</code>是<code>number</code>，调用顺序为：<code>valueOf</code> &gt;&gt;&gt; <code>toString</code>。</li>
+</ul>
+</li>
+</ol>
+<footer><strong>刘小夕</strong><cite><a href="https://juejin.im/post/5cea6e5fe51d45775e33f4de#heading-15" target="_blank" rel="noopener">【Step-By-Step】高频面试题深入解析 / 周刊01</a></cite></footer></blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> <span class="built_in">Date</span>()).toString(); <span class="comment">// 'Sun Jun 30 2019 16:53:46 GMT+0800 (中国标准时间)'</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">Date</span>()).valueOf(); <span class="comment">// 1561884790571</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于<code>hint</code>, <code>[Symbol.toPrimitive]</code>示例可访问上文引用链接<br>关于<code>[Symbol.toPrimitive]</code>可参考：- <a href="http://es6.ruanyifeng.com/#docs/symbol#Symbol-toPrimitive" target="_blank" rel="noopener">阮一峰·ECMAScript 6 入门</a></p>
+</blockquote>
+<h2 id="string转换成number规则："><a href="#string转换成number规则：" class="headerlink" title="string转换成number规则："></a><code>string</code>转换成<code>number</code>规则：</h2><h3 id="Number-和parseInt-方法"><a href="#Number-和parseInt-方法" class="headerlink" title="Number()和parseInt()方法"></a><code>Number()</code>和<code>parseInt()</code>方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'12abc'</span>); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">undefined</span>); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'12abc'</span>); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<h3 id="parseInt-经典面试题"><a href="#parseInt-经典面试题" class="headerlink" title="parseInt()经典面试题"></a><code>parseInt()</code>经典面试题</h3><blockquote><footer><strong>alentan</strong><cite><a href="https://juejin.im/post/5d0202da51882546dd10087b" target="_blank" rel="noopener">为什么 [1, 7, 11].map(parseInt) 返回 [1, NaN, 3]</a></cite></footer></blockquote>
+<h3 id="String-和toString-方法"><a href="#String-和toString-方法" class="headerlink" title="String()和toString()方法"></a><code>String()</code>和<code>toString()</code>方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span>.toString(); <span class="comment">// TypeError: Cannot read property 'toString' of undefined</span></span><br><span class="line"><span class="literal">null</span>.toString(); <span class="comment">// TypeError: Cannot read property 'toString' of null</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">undefined</span>); <span class="comment">// 'undefined'</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">null</span>); <span class="comment">// 'null'</span></span><br></pre></td></tr></table></figure>
+<h2 id="typeof判断类型："><a href="#typeof判断类型：" class="headerlink" title="typeof判断类型："></a><code>typeof</code>判断类型：</h2><p><code>typeof</code>方法返回值：<code>undefined</code>, <code>boolean</code>, <code>number</code>, <code>string</code>, <code>symbol</code>, <code>function</code>, <code>object</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span>; <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]; <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>); <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>); <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"abc"</span>); <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">NaN</span>; <span class="comment">// 'number'</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="keyword">typeof</span> <span class="number">1</span>); <span class="comment">// 'string'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span>; <span class="comment">// 'undefined'</span></span><br></pre></td></tr></table></figure>
+<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><ol>
+<li><p><code>[]</code>开辟了一块堆内存，地址存在栈内存，<code>![]</code>返回<code>false</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([]) &#123;</span><br><span class="line">  ... <span class="comment">// true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较双方的类型相同，则进行值的判断，栈内存地址不同</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] == []; <span class="comment">// false</span></span><br><span class="line">&#123;&#125; == &#123;&#125;; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解题参考：- <a href="https://juejin.im/post/5cab0c45f265da2513734390#heading-6" target="_blank" rel="noopener">【面试篇】寒冬求职季之你必须要懂的原生JS(上)</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[] == ![] <span class="comment">// true</span></span><br><span class="line">&#123;&#125; == !&#123;&#125; <span class="comment">// false</span></span><br><span class="line">&#123;&#125; == <span class="string">'[object Object]'</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>疑惑：文中最后一步<code>Number([])</code>确实为0，但是和<a href="#object转换成基本类型规则："><code>object</code>转换成基本类型规则：</a>似乎有冲突。</p>
+<ol start="4">
+<li>运算符进行隐式类型转换<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'12'</span> + <span class="number">1</span>; <span class="comment">// '121'（String）</span></span><br><span class="line"><span class="number">1</span> + <span class="string">'true'</span>; <span class="comment">// '1true'</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// 2</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">undefined</span>; <span class="comment">// NaN</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">null</span>; <span class="comment">// 1</span></span><br><span class="line"><span class="string">'12'</span> * <span class="number">1</span>; <span class="comment">// 12（Number）</span></span><br><span class="line"><span class="string">'12'</span> - <span class="number">1</span>; <span class="comment">// 11（Number）</span></span><br><span class="line"><span class="string">'a'</span> - <span class="number">1</span>; <span class="comment">// NaN</span></span><br><span class="line"><span class="number">2</span> &gt; <span class="string">'10'</span>; <span class="comment">//false</span></span><br><span class="line"><span class="string">'2'</span> &gt; <span class="string">'10'</span>; <span class="comment">// true</span></span><br><span class="line"><span class="string">'abc'</span> &gt; <span class="string">'b'</span>; <span class="comment">// false</span></span><br><span class="line"><span class="string">'abc'</span> &gt; <span class="string">'aad'</span>; <span class="comment">// true</span></span><br><span class="line">[] + &#123;&#125;; <span class="comment">// '[object Object]'</span></span><br><span class="line">[] + []; <span class="comment">// ''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>字符串连接符<code>+</code>：只要<code>+</code>号两边有一边是字符串</li>
+<li>算术运算符<code>+</code>：<code>+</code>号两边都是数字</li>
+</ul>
+<ol start="5">
+<li><p>特殊类型比较<code>null</code>, <code>undefined</code>, <code>NaN</code>的比较</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> == <span class="literal">null</span>; <span class="comment">// true</span></span><br><span class="line"><span class="literal">NaN</span> == <span class="literal">NaN</span>; <span class="comment">// false</span></span><br><span class="line"><span class="literal">NaN</span> == <span class="literal">null</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/48270127/can-a-1-a-2-a-3-ever-evaluate-to-true" target="_blank" rel="noopener">Can (a== 1 &amp;&amp; a ==2 &amp;&amp; a==3) ever evaluate to true?</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a == <span class="number">1</span> &amp;&amp; a == <span class="number">2</span> &amp;&amp; a == <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>解答：</p>
+<ul>
+<li>利用数组的<code>toString</code>会隐含调用<code>Array.join</code>方法</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">a.join = a.shift;</span><br><span class="line"><span class="built_in">console</span>.log(a == <span class="number">1</span> &amp;&amp; a == <span class="number">2</span> &amp;&amp; a == <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重写<code>Object</code>的<code>toString</code>或者<code>valueOf</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;</span><br><span class="line">  i: <span class="number">1</span>,</span><br><span class="line">  toString: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a == <span class="number">1</span> &amp;&amp; a == <span class="number">2</span> &amp;&amp; a == <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
+<li><a href="https://juejin.im/post/5cab0c45f265da2513734390" target="_blank" rel="noopener">【面试篇】寒冬求职季之你必须要懂的原生JS(上)</a></li>
+<li><a href="https://juejin.im/post/5cea6e5fe51d45775e33f4de" target="_blank" rel="noopener">【Step-By-Step】高频面试题深入解析 / 周刊01</a></li>
+<li><a href="https://juejin.im/post/5d0644976fb9a07ed064b0ca" target="_blank" rel="noopener">[译]送你43道JavaScript面试题</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/68974750" target="_blank" rel="noopener">老码农的字节跳动前端面试总结（2面已凉）</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof" target="_blank" rel="noopener">MDN·typeof</a></li>
+<li><a href="https://www.cnblogs.com/ihboy/p/6700059.html" target="_blank" rel="noopener">Js 中那些 隐式转换</a></li>
+<li><a href="https://blog.csdn.net/itcast_cn/article/details/82887895" target="_blank" rel="noopener">js面试题大坑——隐式类型转换</a></li>
+<li><a href="https://majing.io/posts/10000006051204" target="_blank" rel="noopener">有意思的JavaScript面试题：如何让(a ==1 && a== 2 && a==3) 的值为true</a></li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/06/26/js执行上下文、词法作用域、块级作用域相关学习/" class="next-post btn btn-default" title='js执行上下文、词法作用域、块级作用域相关学习'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">js执行上下文、词法作用域、块级作用域相关学习</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识点："><span class="toc-text">前置知识点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较类型转换规则："><span class="toc-text">==比较类型转换规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#object转换成基本类型规则："><span class="toc-text">object转换成基本类型规则：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#valueOf和toString方法调用顺序："><span class="toc-text">valueOf和toString方法调用顺序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string转换成number规则："><span class="toc-text">string转换成number规则：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-和parseInt-方法"><span class="toc-text">Number()和parseInt()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parseInt-经典面试题"><span class="toc-text">parseInt()经典面试题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-和toString-方法"><span class="toc-text">String()和toString()方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typeof判断类型："><span class="toc-text">typeof判断类型：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#练习题"><span class="toc-text">练习题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
