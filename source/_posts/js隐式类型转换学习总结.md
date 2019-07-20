@@ -32,6 +32,8 @@ img: /2019/06/29/js隐式类型转换学习总结/object.jpeg
     ```js
     [] ==  ''; // true
     [] ==  0; // true
+    [null] == 0; // true
+    [undefined] == 0; // true
     ```
   - 若其中一方为`boolean`, 将`boolean`转为`number`再进行判断
     ```js
@@ -91,6 +93,11 @@ undefined.toString(); // TypeError: Cannot read property 'toString' of undefined
 null.toString(); // TypeError: Cannot read property 'toString' of null
 String(undefined); // 'undefined'
 String(null); // 'null'
+```
+`radix`为2时，NumberObject会被转换为二进制值表示的字符串
+```js
+var num = 13;
+console.log(num.toString(2));
 ```
 
 ## `typeof`判断类型：
