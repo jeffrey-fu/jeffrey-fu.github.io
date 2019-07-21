@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="JavaScript,IOS,Android,H5,WebView,Native,Weex,ReactNative,Flutter,小程序,Hybrid" />
+
+
+    <meta name="description" content="
+图片来自网络
+
+正如上图所示，得益于JavaScript语言的强大和流行，前端工程师思维广度不断提升，这是要抢了IOS、Android工程师饭碗的节奏啊（当然也不可能完全替代，毕竟人家是原生开..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>带你快速了解如何进行移动端开发 | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="带你快速了解如何进行移动端开发">
+            
+	            带你快速了解如何进行移动端开发
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/font-end/">font-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Android/">Android</a> <a class="tag-link" href="/tags/Flutter/">Flutter</a> <a class="tag-link" href="/tags/H5/">H5</a> <a class="tag-link" href="/tags/Hybrid/">Hybrid</a> <a class="tag-link" href="/tags/IOS/">IOS</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/20</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <img src="/2019/07/20/带你快速了解如何进行移动端开发/learn_map.jpg" title="learn_map">
+<p><em>图片来自网络</em></p>
+<blockquote>
+<p>正如上图所示，得益于<code>JavaScript</code>语言的强大和流行，前端工程师思维广度不断提升，这是要抢了<code>IOS</code>、<code>Android</code>工程师饭碗的节奏啊（当然也不可能完全替代，毕竟人家是原生开发）。</p>
+</blockquote>
+<h2 id="为什么混合型移动开发受欢迎👏"><a href="#为什么混合型移动开发受欢迎👏" class="headerlink" title="为什么混合型移动开发受欢迎👏"></a>为什么混合型移动开发受欢迎👏</h2><ul>
+<li>目前主流的框架都是一套代码多端适配，只需维护一套代码，降低用人成本</li>
+<li>相比与传统的<code>IOS</code>、<code>Android</code>开发，每次发版都要经过应用市场的审核，一些经常需要更新的活动页H5就显得得心应手</li>
+<li>相比与WebApp（即H5应用，只运行在移动端<code>WebView浏览器</code>上)，调用了设备API，交互体验和性能都得到了提升</li>
+</ul>
+<h2 id="NativeApp（传统的原生App开发模式）"><a href="#NativeApp（传统的原生App开发模式）" class="headerlink" title="NativeApp（传统的原生App开发模式）"></a>NativeApp（传统的原生App开发模式）</h2><ul>
+<li><p>IOS：<code>Object-c</code>、<a href="https://developer.apple.com/swift/" target="_blank" rel="noopener"><code>Swift</code></a>、<a href="https://developer.apple.com/xcode/swiftui/" target="_blank" rel="noopener"><code>SwiftUI</code></a>、</p>
+</li>
+<li><p>Android：<code>Java</code></p>
+</li>
+</ul>
+<h2 id="WebApp（H5应用）"><a href="#WebApp（H5应用）" class="headerlink" title="WebApp（H5应用）"></a>WebApp（H5应用）</h2><ul>
+<li>运行在<code>WebView浏览器</code>上，只需要进行移动端的适配即可</li>
+<li>开发框架：<a href="https://cn.vuejs.org/" target="_blank" rel="noopener"><code>VueJS</code></a></li>
+</ul>
+<h2 id="HybridApp（混合型应用开发模式）"><a href="#HybridApp（混合型应用开发模式）" class="headerlink" title="HybridApp（混合型应用开发模式）"></a>HybridApp（混合型应用开发模式）</h2><ul>
+<li><p>正如下图所示：在原生的App中，使用<code>WebView</code>作为容器直接承载Web页面，相比直接运行在<code>WebView浏览器</code>上的H5应用，HybridApp就能调用原生API和组件实现<strong>相机、通讯录、短信等功能</strong></p>
+<img src="/2019/07/20/带你快速了解如何进行移动端开发/hybrid_container.jpeg" title="hybrid_container"><br><br><a href="https://segmentfault.com/a/1190000015678155" target="_blank" rel="noopener">图片引用自《Hybrid App技术解析 -- 原理篇》</a>
+</li>
+<li><p>简单原理：H5中的<code>JS</code>代码通过<code>JSBridge</code>（核心桥梁）与<code>Native</code>进行数据互相通信，页面还是在<code>Webview浏览器</code>引擎中显示</p>
+<img src="/2019/07/20/带你快速了解如何进行移动端开发/JSBridge.jpeg" title="JSBridge"><br><br><a href="https://segmentfault.com/a/1190000015678155" target="_blank" rel="noopener">图片引用自《Hybrid App技术解析 -- 原理篇》</a>
+<img src="/2019/07/20/带你快速了解如何进行移动端开发/hybrid_framework.png" title="hybrid_framework"><br><br><a href="https://segmentfault.com/a/1190000004263182" target="_blank" rel="noopener">图片引用自《Hybrid APP架构设计思路》</a>
+</li>
+<li><p>开发框架：<a href="https://phonegap.com/" target="_blank" rel="noopener">PhoneGap</a>，<a href="http://www.wex5.com/wex5/" target="_blank" rel="noopener">Wex5</a>，<a href="https://www.apicloud.com/" target="_blank" rel="noopener">APICloud</a>，<a href="https://ionicframework.com/" target="_blank" rel="noopener">Ionic</a>，<a href="https://github.com/quickhybrid/quickhybrid" target="_blank" rel="noopener">quickhybrid</a></p>
+</li>
+<li><a href="https://blog.csdn.net/xiangzhihong8/article/details/66970600" target="_blank" rel="noopener">JSBridge深度剖析</a></li>
+<li><a href="https://blog.csdn.net/gongch0604/article/details/80510005" target="_blank" rel="noopener">Hybrid App开发设计与实现</a></li>
+<li><a href="https://segmentfault.com/a/1190000004263182" target="_blank" rel="noopener">Hybrid APP架构设计思路</a></li>
+<li><a href="https://segmentfault.com/a/1190000015678155" target="_blank" rel="noopener">Hybrid App技术解析 -- 原理篇</a>
+</li>
+</ul>
+<h2 id="PerformanceHybridApp（高性能混合型应用开发模式）"><a href="#PerformanceHybridApp（高性能混合型应用开发模式）" class="headerlink" title="PerformanceHybridApp（高性能混合型应用开发模式）"></a>PerformanceHybridApp（高性能混合型应用开发模式）</h2><ul>
+<li>相比于采用<code>WebView</code>渲染的<a href="#HybridApp（混合型应用开发模式）">HybridApp</a>，<em>PerformanceHybridApp</em>改成调用原生API渲染UI进行交互通信，自然在性能和体验上更加接近<a href="#NativeApp（传统的原生App开发模式）">NativeApp</a>当然也额外保留了<code>WebView</code>容器功能</li>
+<li>开发框架：<a href="https://reactnative.cn/" target="_blank" rel="noopener">ReactNative</a>、<a href="https://weex.apache.org/zh/" target="_blank" rel="noopener">Weex</a>、<a href="https://alibaba.github.io/weex-ui/#/cn/" target="_blank" rel="noopener">Weex Ui</a>、<a href="https://flutterchina.club/" target="_blank" rel="noopener">Flutter</a>、<a href="https://alibaba.github.io/bindingx/" target="_blank" rel="noopener">BindingX</a>、<a href="https://alibaba.github.io/rax/" target="_blank" rel="noopener">Rax</a>、<a href="https://www.nativescript.org/" target="_blank" rel="noopener">NativeScript</a></li>
+<li><a href="https://juejin.im/post/5b395eb96fb9a00e556123ef" target="_blank" rel="noopener">移动端跨平台开发的深度解析</a></li>
+<li><a href="https://juejin.im/post/5d0bac156fb9a07ec56e7f15" target="_blank" rel="noopener">全网最全 Flutter 与 React Native 深入对比分析</a></li>
+<li><a href="https://github.com/zwwill/blog/issues/3" target="_blank" rel="noopener">网易严选 App 感受 Weex 开发</a></li>
+<li><a href="https://github.com/zwwill/blog/issues/9" target="_blank" rel="noopener">ReactNative 快速入门笔记</a></li>
+<li><a href="https://github.com/zwwill/blog/issues/20" target="_blank" rel="noopener">Weex BindingX 尝鲜</a>
+</li>
+</ul>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><blockquote><p>小程序的主要开发语言是 JavaScript ，小程序的开发同普通的网页开发相比有很大的相似性。对于前端开发者而言，从网页开发迁移到小程序的开发成本并不高，但是二者还是有些许区别的。</p>
+<p>​<strong>网页开发渲染线程和脚本线程是互斥的，这也是为什么长时间的脚本运行可能会导致页面失去响应，而在小程序中，二者是分开的，分别运行在不同的线程中。</strong>网页开发者可以使用到各种浏览器暴露出来的 DOM API，进行 DOM 选中和操作。而如上文所述，小程序的逻辑层和渲染层是分开的，逻辑层运行在 JSCore 中，并没有一个完整浏览器对象，因而缺少相关的DOM API和BOM API。这一区别导致了前端开发非常熟悉的一些库，例如 jQuery、 Zepto 等，在小程序中是无法运行的。同时 JSCore 的环境同 NodeJS 环境也是不尽相同，所以一些 NPM 的包在小程序中也是无法运行的。</p>
+<p>​网页开发者需要面对的环境是各式各样的浏览器，PC 端需要面对 IE、Chrome、QQ浏览器等，在移动端需要面对Safari、Chrome以及 iOS、Android 系统中的各式 WebView 。而小程序开发过程中需要面对的是两大操作系统 iOS 和 Android 的微信客户端，以及用于辅助开发的小程序开发者工具，</p>
+<footer><strong>微信官方文档</strong><cite><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/quickstart/#小程序与普通网页开发的区别" target="_blank" rel="noopener">小程序与普通网页开发的区别</a></cite></footer></blockquote>
+<ul>
+<li>小程序：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/" target="_blank" rel="noopener">微信小程序</a>、<a href="https://mini.open.alipay.com/channel/miniIndex.htm" target="_blank" rel="noopener">支付宝小程序</a>、<a href="https://open-doc.dingtalk.com/microapp/dev" target="_blank" rel="noopener">钉钉小程序</a>、<a href="https://microapp.bytedance.com/" target="_blank" rel="noopener">字节跳动小程序</a>、<a href="https://smartprogram.baidu.com/developer/index.html" target="_blank" rel="noopener">百度小程序</a></li>
+<li>开发框架：<a href="https://taro.aotu.io/" target="_blank" rel="noopener">Taro</a>、<a href="https://uniapp.dcloud.io/" target="_blank" rel="noopener">uni-app</a>、<a href="https://cml.js.org/#/" target="_blank" rel="noopener">Chameleon</a>、<a href="https://wepyjs.github.io/wepy-docs/" target="_blank" rel="noopener">WePY</a>、<a href="http://mpvue.com/" target="_blank" rel="noopener">mpvue</a>、<a href="http://www.okeydown.com/html/2018/10-29/942.html" target="_blank" rel="noopener">megalo</a></li>
+</ul>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000011154120" target="_blank" rel="noopener">什么是Native、Web App、Hybrid、React Native 和 Weex？</a></li>
+<li><a href="https://segmentfault.com/a/1190000012580870" target="_blank" rel="noopener">quickhybrid H5和原生的职责划分</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1330872" target="_blank" rel="noopener">Hybrid App开发模式</a></li>
+<li><a href="https://www.cnblogs.com/yuanyingke/p/6060150.html" target="_blank" rel="noopener">Hybrid APP混合开发的一些经验和总结</a></li>
+<li><a href="http://naotu.baidu.com/file/6af15fcbb72f89926043779811b1ea44" target="_blank" rel="noopener">常用的几种APP开发模式-脑图</a></li>
+<li><a href="https://www.cnblogs.com/yexiaochai/p/4921635.html" target="_blank" rel="noopener">浅谈Hybrid技术的设计与实现</a>
+</li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/07/20/我的奇思妙想/" class="next-post btn btn-default" title='我的奇思妙想'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">我的奇思妙想</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么混合型移动开发受欢迎👏"><span class="toc-text">为什么混合型移动开发受欢迎👏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NativeApp（传统的原生App开发模式）"><span class="toc-text">NativeApp（传统的原生App开发模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebApp（H5应用）"><span class="toc-text">WebApp（H5应用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HybridApp（混合型应用开发模式）"><span class="toc-text">HybridApp（混合型应用开发模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PerformanceHybridApp（高性能混合型应用开发模式）"><span class="toc-text">PerformanceHybridApp（高性能混合型应用开发模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小程序"><span class="toc-text">小程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
