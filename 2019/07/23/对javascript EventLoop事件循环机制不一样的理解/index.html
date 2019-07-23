@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="JavaScript,事件循环机制" />
+
+
+    <meta name="description" content="前置知识点：
+浏览器原理，浏览器内核5种线程及协作，JS引擎单线程设计推荐阅读：
+从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理
+【FE】浏览器渲染引擎「内核」
+
+
+js异步编程，Pr..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>对javascript EventLoop事件循环机制不一样的理解 | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="对javascript EventLoop事件循环机制不一样的理解">
+            
+	            对javascript EventLoop事件循环机制不一样的理解
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/font-end/">font-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/JavaScript/">JavaScript</a> <a class="tag-link" href="/tags/事件循环机制/">事件循环机制</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/23</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="前置知识点："><a href="#前置知识点：" class="headerlink" title="前置知识点："></a>前置知识点：</h2><ul>
+<li>浏览器原理，浏览器内核5种线程及协作，JS引擎单线程设计<br><em>推荐阅读：</em><ul>
+<li><a href="https://segmentfault.com/a/1190000012925872" target="_blank" rel="noopener">从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理</a></li>
+<li><a href="https://github.com/zwwill/blog/issues/2" target="_blank" rel="noopener">【FE】浏览器渲染引擎「内核」</a></li>
+</ul>
+</li>
+<li>js异步编程，Promise实现<br><em>推荐阅读：</em><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html" target="_blank" rel="noopener">Javascript异步编程的4种方法</a></li>
+<li><a href="/2019/06/18/前端面试必考题Promise的源码解析/" title="前端面试必考题Promise的源码解析">前端面试必考题Promise的源码解析</a></li>
+</ul>
+</li>
+<li>堆、栈、队列、执行栈、任务、微任务、事件循环机制♻️<br><em>推荐阅读：</em><ul>
+<li><a href="https://juejin.im/post/5c6a033f5188254e5e61960a" target="_blank" rel="noopener">JavaScript异步编程-基础篇</a></li>
+<li><a href="https://juejin.im/post/5c947bca5188257de704121d" target="_blank" rel="noopener">彻底搞懂浏览器Event-loop</a></li>
+<li><a href="https://juejin.im/post/59e85eebf265da430d571f89" target="_blank" rel="noopener">这一次，彻底弄懂 JavaScript 执行机制</a></li>
+<li><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件循环机制"><a href="#事件循环机制" class="headerlink" title="事件循环机制"></a>事件循环机制</h2><blockquote>
+<p>相信读者读完以上推荐的文章后，已经知道<code>事件循环机制</code>是怎么一回事了吧，也能从容应对面试。接下来我要谈谈自己的理解：</p>
+</blockquote>
+<h3 id="为什么会有事件循环机制"><a href="#为什么会有事件循环机制" class="headerlink" title="为什么会有事件循环机制"></a>为什么会有事件循环机制</h3><ul>
+<li>js设计之初就是单线程模式，代码也都是顺序执行，当遇到因为大量计算、http请求等需要额外的等待时间时，浏览器用户就会体验到卡顿了，所以所有的设计和改进初衷只有一个就是<strong>要快</strong>。</li>
+</ul>
+<h3 id="事件循环机制的产生"><a href="#事件循环机制的产生" class="headerlink" title="事件循环机制的产生"></a>事件循环机制的产生</h3><ul>
+<li><p>浏览器说我的内核是多线程，可以辅助JS引擎线程啊，<a href="http://www.ruanyifeng.com/blog/2018/07/web-worker.html" target="_blank" rel="noopener"><strong>Web Worker</strong></a>线程提供大量计算辅助（不能操作DOM），<strong>事件触发线程</strong>，<strong>定时触发器线程</strong>， <strong>异步http请求线程</strong>。</p>
+<img src="/2019/07/23/对javascript%20EventLoop事件循环机制不一样的理解/brower.png" title="brower">
+<img src="/2019/07/23/对javascript%20EventLoop事件循环机制不一样的理解/render.jpg" title="render">
+</li>
+<li><p>执行栈（先进后出），由JS引擎线程控制，引用下面这个例子谈谈自己的理解：</p>
+<img src="/2019/07/23/对javascript%20EventLoop事件循环机制不一样的理解/execute_stack2.gif" title="execute_stack2">
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "script start"</span></span><br><span class="line"><span class="comment">// "script end"</span></span><br><span class="line"><span class="comment">// "promise1"</span></span><br><span class="line"><span class="comment">// "promise2"</span></span><br><span class="line"><span class="comment">// "setTimeout"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>ES5</code>还没有<code>Promise</code>时代，异步回调很常见，上面例子中，通过解读Promise源码（<a href="/2019/06/18/前端面试必考题Promise的源码解析/" title="前端面试必考题Promise的源码解析">前端面试必考题Promise的源码解析</a>），我们可以把<code>Promise</code>转换成如下图式回调（<em>个人理解，文章中的Promise源码也只是模拟，大部分浏览器已经原生支持</em>）。</p>
+<ol>
+<li><p>打印完<code>script start</code>, <code>script end</code>主执行栈出栈，如果<code>Promise.resolve().then</code>换成<code>new Promise(executor)</code>，脑补<code>Promise</code>换成回调函数，那么这个函数一执行，<code>executor</code>函数也就执行了，然后遇到异步回调，回调函数被<strong>其它对应的线程接手，启动观察者模式，完成后回调函数被推入事件任务队列，等待执行栈空了进入主线程执行</strong></p>
+<img src="/2019/07/23/对javascript%20EventLoop事件循环机制不一样的理解/callback.jpg" title="callback">
+</li>
+<li><p>以上这种在异步函数中放同步函数的例子，为了合理解释输出顺序而推出了<code>microtasks</code>微任务的概念，请看下面的例子，脑补<code>Promise</code>换成回调函数，<strong><code>Promise.prototype.then</code>内部执行了<code>return new Promise()</code>，js引擎在捕捉到<code>Promise</code>时，放到了由js引擎自身控制的微任务队列等待执行，也就造成promise1、2、3、4错开打印</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise3'</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise4'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "script start"</span></span><br><span class="line"><span class="comment">// "promise1"</span></span><br><span class="line"><span class="comment">// "promise3"</span></span><br><span class="line"><span class="comment">// "script end"</span></span><br><span class="line"><span class="comment">// "promise2"</span></span><br><span class="line"><span class="comment">// "promise4"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>microtasks</code>微任务的概念完全为了解释异步函数中放同步函数的场景，<strong>而且各类文章和面试都是这种题目和例子</strong>，在实际开发过程中，<strong>你会在<code>Promise</code>中这么写么？</strong>，在我看来这种比较打印顺序太过于理论，而且可能会混乱你的思绪。就像下面的例子，<code>Promise</code>的<code>resolve</code>决定了Promise状态，就像在回调函数中满足了条件才会继续执行，例子中只是用<code>setTimeout</code>模拟异步请求，用之前的理论你可能觉得<code>setTimeout</code>被放入了事件任务队列，那没有<code>resolve</code>的<code>Promise</code>怎么解释呢？（<em>放到微任务里一直阻碍第一个<code>setTimeout</code>宏任务执行吗？显然是不可能的，这不是跟设计事件循环机制初衷冲突了么</em>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 模拟异步请求</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// resolve(); 注释掉resolve，使Promise一直处于‘pending’状态</span></span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "setTimeout"</span></span><br><span class="line"><span class="comment">// "promise1"</span></span><br><span class="line"><span class="comment">// "promise2"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>个人认为把<code>Promise</code>，<code>async/await</code>脑补成原始的回调函数（模拟源码中模拟异步是用的<code>setTimeout</code>函数），而js引擎捕捉到<code>setTimeout</code>, <code>setInterval</code>就转给<strong>定时触发器线程</strong>处理，捕捉到<code>XMLHttpReuqest</code>, <code>fetch</code>就转给<strong>异步http请求线程</strong>，跟<strong>事件触发线程</strong>一起管理着事件任务队列，<strong>微任务的概念可以看作是当事件触发线程遇到几乎同时需要把回调函数放到事件任务队列时，<code>Promise</code>内部的异步标识函数优先级高于<code>setTimeout</code>函数吧</strong>，以上例子中没有执行<code>resolve</code>的<code>Promise</code>状态一直处于’pending’，<strong>事件触发线程</strong>压根没有放入到事件任务队列，<strong>总之浏览器会安排的妥妥的，不要打架，虽然js引擎线程只有一个（听我指挥排好队，咱们这都是同步代码执行ms级别，我开了很多其它线程处理需要等待的代码了）。</strong>以下例子模拟所谓的几乎同时把回调函数放到事件任务队列，记得把<code>Promise</code>脑补成原始的回调函数。仿佛回到了没有微任务的时代。</p>
+<img src="/2019/07/23/对javascript%20EventLoop事件循环机制不一样的理解/execute_stack.jpg" title="execute_stack">
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 模拟异步请求</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 模拟异步请求</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise3'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">  &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise4'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// "setTimeout"</span></span><br><span class="line"><span class="comment">// "promise1"</span></span><br><span class="line"><span class="comment">// "promise2"</span></span><br><span class="line"><span class="comment">// "promise3"</span></span><br><span class="line"><span class="comment">// "promise4"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p><em>以上内容纯属未深入了解js情况下的个人理解，感觉是在努力摒弃微任务的概念，回归ES5回调函数时代，便于自身理解事件循环机制而做出的遐想。</em></p>
+<h3 id="多环境下的事件循环机制"><a href="#多环境下的事件循环机制" class="headerlink" title="多环境下的事件循环机制"></a>多环境下的事件循环机制</h3><blockquote>
+<p>在node环境、浏览器环境以及各个不同版本下js引擎处理的方式还不太一样。node比浏览器还复杂些😢（以后学Node.js时再看吧）</p>
+</blockquote>
+<p><em>推荐阅读：</em></p>
+<ul>
+<li><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200#heading-25" target="_blank" rel="noopener">NodeJS的Event Loop</a></li>
+<li><a href="https://juejin.im/post/5c3e8d90f265da614274218a" target="_blank" rel="noopener">又被node的eventloop坑了，这次是node的锅</a></li>
+<li><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200#heading-19" target="_blank" rel="noopener">关于Chrome浏览器73以下版本和73版本下`async/await`区别</a>
+</li>
+</ul>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
+<li><a href="https://v8.js.cn/blog/fast-async/" target="_blank" rel="noopener">更快的异步函数和 Promise</a></li>
+<li><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="noopener">Tasks, microtasks, queues and schedules</a></li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/07/20/带你快速了解如何进行移动端开发/" class="next-post btn btn-default" title='带你快速了解如何进行移动端开发'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">带你快速了解如何进行移动端开发</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识点："><span class="toc-text">前置知识点：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件循环机制"><span class="toc-text">事件循环机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么会有事件循环机制"><span class="toc-text">为什么会有事件循环机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件循环机制的产生"><span class="toc-text">事件循环机制的产生</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多环境下的事件循环机制"><span class="toc-text">多环境下的事件循环机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
