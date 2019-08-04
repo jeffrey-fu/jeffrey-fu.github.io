@@ -1,0 +1,396 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="vue,mvvm" />
+
+
+    <meta name="description" content="前置知识点：MVVM、MVC思想：
+了解web前端发展历史有助于理解MVVM、MVC思想，历史发展总是朝着不断优化代码组织结构、易维护、封装复用的方向。揭开面纱，一切还是基于浏览器提供的API进..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>Vue响应式原理及手动实现一个简易的MVVM | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Vue响应式原理及手动实现一个简易的MVVM">
+            
+	            Vue响应式原理及手动实现一个简易的MVVM
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/font-end/">font-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/mvvm/">mvvm</a> <a class="tag-link" href="/tags/vue/">vue</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/08/04</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="前置知识点："><a href="#前置知识点：" class="headerlink" title="前置知识点："></a>前置知识点：</h2><h3 id="MVVM、MVC思想："><a href="#MVVM、MVC思想：" class="headerlink" title="MVVM、MVC思想："></a>MVVM、MVC思想：</h3><ul>
+<li>了解web前端发展历史有助于理解MVVM、MVC思想，<strong>历史发展总是朝着不断优化代码组织结构、易维护、封装复用的方向。揭开面纱，一切还是基于浏览器提供的API进行DOM操作。事实证明为项目开发效率的提升带来了重大意义。</strong><blockquote><p>使用MVVM框架，只要改变JavaScript对象的状态，就会导致DOM结构作出对应的变化！这让我们的关注点从如何操作DOM变成了如何更新JavaScript对象的状态，而操作JavaScript对象比DOM简单多了！</p>
+<footer><strong>廖雪峰</strong><cite><a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1108898947791072" target="_blank" rel="noopener">MVVM</a></cite></footer></blockquote>
+<em>推荐阅读：</em></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1596277899370862119" target="_blank" rel="noopener">什么是MVVM，MVC和MVVM的区别，MVVM框架VUE实现原理</a></li>
+<li><a href="https://www.jianshu.com/p/b0aab1ffad93" target="_blank" rel="noopener">mvc和mvvm的区别</a>
+<img src="/2019/08/04/Vue响应式原理及手动实现一个简易的MVVM/mvc.webp" title="mvc">
+</li>
+</ul>
+<h3 id="JS设计模式（观察者模式、发布-订阅模式）："><a href="#JS设计模式（观察者模式、发布-订阅模式）：" class="headerlink" title="JS设计模式（观察者模式、发布-订阅模式）："></a>JS设计模式（观察者模式、发布-订阅模式）：</h3><ul>
+<li>观察者模式<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observerable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.eventObj = &#123;&#125;;</span><br><span class="line">  on(evName, fn) &#123;</span><br><span class="line">    <span class="keyword">this</span>.eventObj[evName] = <span class="keyword">this</span>.eventObj[evName] ? [...this.eventObj[evName], fn] : [fn];</span><br><span class="line">  &#125;</span><br><span class="line">  emit(evName, ...args) &#123;</span><br><span class="line">    <span class="keyword">this</span>.eventObj[evName].forEach(<span class="function">(<span class="params">fn</span>) =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个可观察对象</span></span><br><span class="line"><span class="keyword">const</span> event = <span class="keyword">new</span> Observerable();</span><br><span class="line">event.on(<span class="string">'error'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error1'</span>);</span><br><span class="line">&#125;)</span><br><span class="line">event.on(<span class="string">'error'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'error2'</span>);</span><br><span class="line">&#125;)</span><br><span class="line">event.emit(<span class="string">'error'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><em>代码参考自：</em> <a href="https://github.com/lvwxx/blog/issues/9" target="_blank" rel="noopener">Node.js && JavaScript 面试常用的设计模式二</a></p>
+<ul>
+<li>发布-订阅模式<blockquote>
+<p>观察者模式与发布-订阅模式核心思想非常类似，观察者模式维护一个<code>Observerable</code>对象，发布-订阅模式集合所有<code>Publisher</code>和<code>Subscriber</code>对象形成<code>EventHub</code>信息中心，由信息中心负责通知订阅者，做到代码组织结构优化。</p>
+</blockquote>
+</li>
+</ul>
+<p><em>推荐阅读：</em> <a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></p>
+<h3 id="JS原生API："><a href="#JS原生API：" class="headerlink" title="JS原生API："></a>JS原生API：</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty()</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects#%E5%AE%9A%E4%B9%89_getters_%E4%B8%8E_setters" target="_blank" rel="noopener">js属性描述: getters与setters</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createDocumentFragment" target="_blank" rel="noopener">Document.createDocumentFragment()</a></li>
+<li><a href="http://www.softwhy.com/article-9271-1.html" target="_blank" rel="noopener">Node.childNodes|nodeType|textContent|innerHtml|firstChild|firstElementChild</a></li>
+</ul>
+<h2 id="AngularJs响应式原理："><a href="#AngularJs响应式原理：" class="headerlink" title="AngularJs响应式原理："></a>AngularJs响应式原理：</h2><blockquote><p>通过<code>脏值检测</code>的方式比对数据是否有变更，来决定是否更新视图。最简单的方式就是通过<code>setInterval()</code>定时轮询检测数据变动，当然Google不会这么low。Angular只有在指定的事件触发时进入脏值检测，大致如下：DOM事件(譬如用户输入文本、点击按钮<code>ng-click</code>)、XHR响应事件<code>$http</code>、浏览器Location变更事件<code>$location</code>、Timer事件(<code>$timeout</code>、<code>$interval</code>)、执行<code>$digest()</code>或<code>$apply()</code>。在Angular中组件是以树的形式组织起来的，相应地，检测器也是一棵树的形状。当一个异步事件发生时，脏检查会从根组件开始，自上而下对树上的所有子组件进行检查，这种检查方式的性能存在很大问题。</p>
+<footer><strong>程序思维</strong><cite><a href="https://baijiahao.baidu.com/s?id=1596277899370862119" target="_blank" rel="noopener">什么是MVVM，MVC和MVVM的区别，MVVM框架VUE实现原理</a></cite></footer></blockquote>
+<h2 id="Vue响应式原理："><a href="#Vue响应式原理：" class="headerlink" title="Vue响应式原理："></a>Vue响应式原理：</h2><img src="/2019/08/04/Vue响应式原理及手动实现一个简易的MVVM/vue.png" title="vue">
+<blockquote>
+<p>通过<code>Object.defineProperty()</code>API监听对象的变化，实现操作js对象自动更新DOM（调用预先绑定的回调函数）。由于<code>Object.defineProperty</code>是ES5中一个无法shim的特性，这也就是Vue不支持IE8以及更低版本浏览器的原因，而且不能监听到数组的变化（Vue3.0开始使用ES6提供的<a href="http://es6.ruanyifeng.com/#docs/proxy" target="_blank" rel="noopener"><code>Proxy</code></a>）。</p>
+</blockquote>
+<p><em>推荐阅读：</em></p>
+<ul>
+<li><a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="noopener">Vue官网·深入响应式原理</a></li>
+<li><a href="https://cn.vuejs.org/v2/guide/list.html#%E6%95%B0%E7%BB%84%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B" target="_blank" rel="noopener">Vue官网·数组更新检测</a>
+</li>
+</ul>
+<h2 id="手动实现一个简易的MVVM："><a href="#手动实现一个简易的MVVM：" class="headerlink" title="手动实现一个简易的MVVM："></a>手动实现一个简易的MVVM：</h2><blockquote>
+<p>Vue响应式原理简单明了，难点在于Vue内部做了很多事情来实现双向绑定、性能优化等，通过算法模型减少DOM树更新和最大范围的重用。</p>
+</blockquote>
+<ul>
+<li><p>实现Vue构造函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.$options = options;</span><br><span class="line">  <span class="keyword">this</span>._data = <span class="keyword">this</span>.$options.data;</span><br><span class="line">  <span class="comment">// 实例化一个发布者（可观察对象）</span></span><br><span class="line">  <span class="keyword">new</span> Publisher(<span class="keyword">this</span>._data);</span><br><span class="line">  <span class="comment">// 实现vm实例对data对象中的属性直接读取和赋值</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> <span class="keyword">this</span>._data) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, key, &#123;</span><br><span class="line">      enumerable: <span class="literal">true</span>,</span><br><span class="line">      configurable: <span class="literal">false</span>,</span><br><span class="line">      get() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._data[key];</span><br><span class="line">      &#125;,</span><br><span class="line">      set(newValue) &#123;</span><br><span class="line">        <span class="keyword">this</span>._data[key] = newValue;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">new</span> Compile(<span class="keyword">this</span>.$options.el, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现Compile简单编译DOM</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Compile 简单编译DOM</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Compile</span>(<span class="params">el, vm</span>) </span>&#123;</span><br><span class="line">  vm.$el = <span class="built_in">document</span>.querySelector(el);</span><br><span class="line">  <span class="keyword">const</span> fragment = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line">  <span class="keyword">let</span> child = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span>(child = vm.$el.firstChild) &#123;</span><br><span class="line">    fragment.appendChild(child); <span class="comment">// vm.$el的子元素被转移到fragment</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">replace</span>(<span class="params">fragment</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> pattern = <span class="regexp">/\&#123;\&#123;(.*)\&#125;\&#125;/</span>;</span><br><span class="line">    <span class="built_in">Array</span>.from(fragment.childNodes).forEach(<span class="function">(<span class="params">node</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> text = node.textContent;</span><br><span class="line">      <span class="keyword">if</span> (node.nodeType === <span class="number">3</span> &amp;&amp; pattern.test(text)) &#123;</span><br><span class="line">        <span class="keyword">const</span> key = <span class="built_in">RegExp</span>.$<span class="number">1.</span>trim();</span><br><span class="line">        <span class="comment">// 为每一个&#123;&#123; xxx &#125;&#125;节点实例化一个订阅者，订阅data对象中的属性值变化</span></span><br><span class="line">        <span class="comment">// 利用闭包，将node节点作为私有变量在内存中保存起来</span></span><br><span class="line">        <span class="keyword">new</span> Subscriber(vm, key, (newValue) =&gt; &#123;</span><br><span class="line">          node.textContent = text.replace(pattern, newValue);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// vm[key]对data对象取值触发get函数，此时EventHub静态属性target指向Subscriber实例，并被添加到events中</span></span><br><span class="line">        node.textContent = text.replace(pattern, vm[key])</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (node.childNodes &amp;&amp; node.childNodes.length) &#123;</span><br><span class="line">        replace(node);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  replace(fragment);</span><br><span class="line">  vm.$el.appendChild(fragment);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布-订阅模式实现响应</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发布-订阅设计模式</span></span><br><span class="line"><span class="comment">// EventHub信息中心</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventHub</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.events = [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EventHub.prototype.on = <span class="function"><span class="keyword">function</span>(<span class="params">evName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.events.push(evName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EventHub.prototype.notify = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.events.forEach(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    event.update();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Publisher发布</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Publisher</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> eventHub = <span class="keyword">new</span> EventHub();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> data) &#123;</span><br><span class="line">    <span class="keyword">let</span> value = data[key];</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">      enumerable: <span class="literal">true</span>,</span><br><span class="line">      configurable: <span class="literal">false</span>,</span><br><span class="line">      get() &#123;</span><br><span class="line">        EventHub.target &amp;&amp; eventHub.on(EventHub.target);</span><br><span class="line">        EventHub.target = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">      &#125;,</span><br><span class="line">      set(newValue) &#123;</span><br><span class="line">        <span class="keyword">if</span> (newValue === value) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        value = newValue;</span><br><span class="line">        eventHub.notify();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Subscriber订阅</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Subscriber</span>(<span class="params">vm, key, fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.vm = vm;</span><br><span class="line">  <span class="keyword">this</span>.key = key;</span><br><span class="line">  <span class="keyword">this</span>.fn = fn;</span><br><span class="line">  EventHub.target = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Subscriber.prototype.update = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.fn(<span class="keyword">this</span>.vm[<span class="keyword">this</span>.key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在发布-订阅模式中<code>Publisher</code>相当于<code>Observerable</code>可观察对象，传入Vue构造函数options中的data对象通过定义<code>getters</code>与<code>setters</code>变成可观察对象，任何取值赋值操作都可以发布信息到<code>EventHub信息中心</code>，由<code>EventHub</code>负责通知订阅者。</p>
+</li>
+</ul>
+<p><em>完整代码：</em> <a href="https://github.com/jeffrey-fu/simple-mvvm" target="_blank" rel="noopener">github/simple-mvvm</a></p>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
+<li><a href="https://juejin.im/post/5d26e368e51d4577407b1dd7" target="_blank" rel="noopener">这应该是最详细的响应式系统讲解了</a></li>
+<li><a href="https://www.jianshu.com/p/c7bf5092a0a6" target="_blank" rel="noopener">实现一个简单的MVVM</a></li>
+<li><a href="https://github.com/doodlewind/nano-mvc" target="_blank" rel="noopener">github/nano-mvc</a></li>
+<li><a href="https://github.com/slashhuang/blog/blob/master/essays/js/design-patterns.md" target="_blank" rel="noopener">JS设计模式漫谈</a></li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/07/23/对javascript EventLoop事件循环机制不一样的理解/" class="next-post btn btn-default" title='对javascript EventLoop事件循环机制不一样的理解'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">对javascript EventLoop事件循环机制不一样的理解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识点："><span class="toc-text">前置知识点：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MVVM、MVC思想："><span class="toc-text">MVVM、MVC思想：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS设计模式（观察者模式、发布-订阅模式）："><span class="toc-text">JS设计模式（观察者模式、发布-订阅模式）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS原生API："><span class="toc-text">JS原生API：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJs响应式原理："><span class="toc-text">AngularJs响应式原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue响应式原理："><span class="toc-text">Vue响应式原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手动实现一个简易的MVVM："><span class="toc-text">手动实现一个简易的MVVM：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
