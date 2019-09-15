@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="面试" />
+
+
+    <meta name="description" content="
+关于裸辞在2019年下半年，整个互联网圈不怎么景气的大环境下，我选择了裸辞，并且对自己的选择没有后悔。原因如下：
+
+很多企业在政府政策导向下撤离市中心往余杭、萧山等周边区域搬迁，前公司也不例外..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>2019年8月前端面试总结 | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="2019年8月前端面试总结">
+            
+	            2019年8月前端面试总结
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/font-end/">font-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/面试/">面试</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/09/15</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <img src="/2019/09/15/2019年8月前端面试总结/Front-End-Developer-Skill-Set.png" title="Front-End-Developer-Skill-Set">
+<h2 id="关于裸辞"><a href="#关于裸辞" class="headerlink" title="关于裸辞"></a>关于裸辞</h2><p>在2019年下半年，整个互联网圈不怎么景气的大环境下，我选择了裸辞，并且对自己的选择没有后悔。原因如下：</p>
+<ul>
+<li>很多企业在政府政策导向下撤离市中心往余杭、萧山等周边区域搬迁，前公司也不例外，在每天往返3小时的煎熬下毅然决定在新项目启动之前递交辞职。</li>
+<li>之前是以实习生的身份转正几乎没有面试经验，想着可要好好地准备面试。</li>
+</ul>
+<h2 id="关于本人"><a href="#关于本人" class="headerlink" title="关于本人"></a>关于本人</h2><p><em>即将奔三</em>、<em>非科班</em>、<em>接触前端一年半时间</em></p>
+<h2 id="面试经历"><a href="#面试经历" class="headerlink" title="面试经历"></a>面试经历</h2><blockquote>
+<p>以下问题全凭面试结束后的回忆：</p>
+</blockquote>
+<h3 id="有赞微商城"><a href="#有赞微商城" class="headerlink" title="有赞微商城"></a>有赞微商城</h3><ul>
+<li><a href="https://tech.youzan.com/" target="_blank" rel="noopener">有赞技术团队</a>
+</li>
+</ul>
+<blockquote>
+<p>CSS相关</p>
+</blockquote>
+<ul>
+<li>IE盒子模型和标准盒子模型区别</li>
+<li>伪类、伪元素（::first-line, ::first-letter, ::after, ::before）</li>
+<li>CSS选择器优先级：!importent &gt; 内联样式 &gt; id选择器 &gt; class选择器 …</li>
+<li><a href="https://segmentfault.com/a/1190000016389031" target="_blank" rel="noopener">CSS实现垂直、水平居中方法</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex-box常用属性值</a></li>
+<li>position属性值：static(默认值), relative, absolute, fixed, <a href="https://juejin.im/post/5cde75636fb9a07ef562048a" target="_blank" rel="noopener">sticky</a></li>
+</ul>
+<blockquote>
+<p>JS相关</p>
+</blockquote>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString" target="_blank" rel="noopener">Object.prototype.toString.call 为什么能输出[object Object]?</a></li>
+<li>原型，原型链，继承方式</li>
+<li>call、apply、bind</li>
+<li><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">浏览器Event-Loop</a></li>
+</ul>
+<blockquote>
+<p>React相关</p>
+</blockquote>
+<ul>
+<li>React生命周期函数</li>
+<li>组件名为什么要大写：跟JSX语法解析用以区分原生html元素</li>
+<li>class组件和function组件区别</li>
+<li>虚拟Dom如何渲染</li>
+<li><a href="https://zhuanlan.zhihu.com/p/20346379" target="_blank" rel="noopener">React Diff算法</a></li>
+<li>render机制，父子组件渲染引发re-render问题</li>
+<li><a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">React Hooks</a></li>
+<li>React Router两种模式hash、history区别(hash模式#后面的内容不会发送到服务器，history模式下nginx服务器需要设置try_files)</li>
+</ul>
+<blockquote>
+<p>算法相关</p>
+</blockquote>
+<ul>
+<li>求两个数组的交集</li>
+</ul>
+<h3 id="涂鸦智能面试"><a href="#涂鸦智能面试" class="headerlink" title="涂鸦智能面试"></a>涂鸦智能面试</h3><ul>
+<li>React16 新的生命周期函数static getDerivedStateFromProps、getSnapShotBeforeUpdate等</li>
+</ul>
+<p>​    <em>初始化阶段：</em>constructor =&gt; componentWillReceiveProps（static getDerivedStateFromProps） =&gt; componentWillMount =&gt; render =&gt; componentDidMount =&gt; componentWillUnmount</p>
+<p>​    <em>更新阶段：</em>componentWillReceiveProps（static getDerivedStateFromProps） =&gt; shouldComponentUpdate =&gt; componentWillUpdate =&gt; render =&gt; componentDidUpdate</p>
+<ul>
+<li><p>React16 fiber纤程原理 有哪些字段 性能优化体现在哪里（React性能瓶颈在哪？diff算法耗时？）</p>
+</li>
+<li><p>React Components Class和Function组件声明方式的区别？更新机制不同？</p>
+</li>
+<li><p>React Hooks相比原Class写法有哪些优势</p>
+</li>
+<li><p>React JSX  -&gt; babel转译 -&gt; React库createElement生成dom树 -&gt; React-DOM库render方法调用DOM原生api挂载浏览器dom树上</p>
+</li>
+<li><p>React虚拟Dom的原理，diff算法（三种方式），key作用</p>
+</li>
+<li><p>redux源码阅读，设计思想，订阅监听设计模式</p>
+</li>
+<li><p>redux中间件的理解，包装dispatch，异步回掉方式改变state？</p>
+</li>
+<li><p>TypeScript有哪些基本类型：泛型、元组 Tuple、枚举</p>
+</li>
+<li><p>Webpack打包原理、插件和loader发生在打包的哪个阶段</p>
+</li>
+</ul>
+<h3 id="凌笛数码面试"><a href="#凌笛数码面试" class="headerlink" title="凌笛数码面试"></a>凌笛数码面试</h3><ul>
+<li><p>React中 this绑定方式（bind(this)，箭头函数），两种方式的区别</p>
+</li>
+<li><p>Redux原理</p>
+</li>
+<li><p>React路由懒加载原理</p>
+</li>
+<li><p>pureComponent原理（如何避免不必要的re-render）</p>
+</li>
+<li><p>Webpack tree-shaking的原理</p>
+</li>
+<li><p>手写深拷贝函数</p>
+</li>
+<li><p>ES7、ES8有哪些新方法（装饰器属于ES6）</p>
+</li>
+<li><p>Promise、Generator、async await方法区别（Generator的暂停）</p>
+</li>
+<li><p>闭包（如何释放闭包）</p>
+</li>
+<li><p>Array的所有方法（注意是否改变原数组sort，fill，lastIndexOf，map，includes，join，reverse，reduce，copyWithin）</p>
+</li>
+<li><p>ES6 … 扩展语法的原理（遍历器接口，被for … of循环遍历）</p>
+</li>
+<li><p>寻找字符串中连续出现次数最多的字符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"bvaafffaaazzzaa"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = str.split(<span class="string">''</span>);</span><br><span class="line">  <span class="keyword">var</span> temp =[];</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">-1</span>;</span><br><span class="line">  arr.forEach(<span class="function">(<span class="params">s, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s === arr[index - <span class="number">1</span>] || s === arr[index + <span class="number">1</span>]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (s !== arr[index - <span class="number">1</span>]) &#123; ++ count; &#125;</span><br><span class="line">      temp[count] ? temp[count].push(s) : temp[count] = [s];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">var</span> max = <span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, temp.map(<span class="function">(<span class="params">arr</span>) =&gt;</span> arr.length));</span><br><span class="line">  <span class="keyword">var</span> maxArr = temp.filter(<span class="function">(<span class="params">arr</span>) =&gt;</span> arr.length === max);</span><br><span class="line">  maxArr.forEach(<span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">    obj[arr[<span class="number">0</span>]] = max;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(calc(str));</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>正则表达式解法参考：</p>
+</blockquote>
+<ul>
+<li><a href="https://juejin.im/post/5965943ff265da6c30653879#heading-17" target="_blank" rel="noopener">JS正则表达式完整教程·反向引用</a></li>
+<li><a href="http://www.aijquery.cn/Html/jqueryjiqiao/181.html" target="_blank" rel="noopener">正则表达式匹配重复的字符串[超详细]附完整实例</a>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="睿轶信息"><a href="#睿轶信息" class="headerlink" title="睿轶信息"></a>睿轶信息</h3><ol>
+<li>Chrome突破：font-size：12px</li>
+<li><a href="https://www.cnblogs.com/meierbao/p/6526247.html" target="_blank" rel="noopener">zoom:1</a></li>
+<li>浏览器标签页之间进行通信onMessage/postMessage，</li>
+<li>Margin重叠BFC，Z-index：层叠顺序问题，</li>
+<li>LocalStorage如何突破5M，SessionStorage Cookie区别，</li>
+<li><a href="https://lavas.baidu.com/doc" target="_blank" rel="noopener">PWA，H5离线开发了解，存储在哪</a></li>
+<li>AMD\CMD\CommonJS 区别</li>
+<li>this.setState方法同步异步问题（合成事件原理）</li>
+<li><p>变量提升</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">  <span class="keyword">var</span> b = a = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">  <span class="keyword">var</span> a = b = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h2><ul>
+<li><a href="https://mp.weixin.qq.com/s/W7CNGn-Qc8o0EQ3bIKAJBQ" target="_blank" rel="noopener">React高频面试题梳理，看看面试怎么答？（上）</a></li>
+<li><a href="https://github.com/lydiahallie/javascript-questions" target="_blank" rel="noopener">List of (Advanced) JavaScript Questions（上）</a></li>
+<li><a href="https://juejin.im/post/5d2ee123e51d4577614761f8" target="_blank" rel="noopener">20道JS原理题助你面试一臂之力！</a></li>
+<li><a href="https://juejin.im/post/5d124a12f265da1b9163a28d" target="_blank" rel="noopener">这儿有20道大厂面试题等你查收</a></li>
+<li><a href="https://juejin.im/post/5cea6e5fe51d45775e33f4de" target="_blank" rel="noopener">【Step-By-Step】高频面试题深入解析 / 周刊01</a></li>
+<li><a href="https://zjafei.coding.me/2019/02/20/react%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9B%BF%E4%BB%A3%E6%97%A7%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" target="_blank" rel="noopener">react新生命周期替代旧生命周期的最佳实践</a>
+</li>
+</ul>
+<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><ul>
+<li>建议在<a href="https://www.zhipin.com/" target="_blank" rel="noopener">Boss直聘</a>上找，相比之下<a href="https://www.lagou.com/" target="_blank" rel="noopener">拉钩网</a>显得不怎么靠谱</li>
+<li>目前就业环境所趋，公司招聘要求明显提升，反观阿里招聘基本都是P6+，P7级别，要提升自身技能和软实力</li>
+<li>数据结构和算法，二面基本会问简单的算法题目，刷<a href="https://leetcode-cn.com/problemset/all/" target="_blank" rel="noopener">LeetCode</a>有用</li>
+<li>CSS相关基础知识较薄弱</li>
+<li>身体还是第一位</li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/08/04/Vue响应式原理及手动实现一个简易的MVVM/" class="next-post btn btn-default" title='Vue响应式原理及手动实现一个简易的MVVM'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Vue响应式原理及手动实现一个简易的MVVM</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于裸辞"><span class="toc-text">关于裸辞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于本人"><span class="toc-text">关于本人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试经历"><span class="toc-text">面试经历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有赞微商城"><span class="toc-text">有赞微商城</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#涂鸦智能面试"><span class="toc-text">涂鸦智能面试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#凌笛数码面试"><span class="toc-text">凌笛数码面试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#睿轶信息"><span class="toc-text">睿轶信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试准备"><span class="toc-text">面试准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试总结"><span class="toc-text">面试总结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
