@@ -6,3 +6,13 @@
 ![hexo-theme-snippet](http://snippet.shenliyang.com/img/snippet-screenshots1000.jpg "Snippet主题")
 
 ## [visit my blog](https://jeffrey-fu.github.io/)
+
+## local server
+```bash
+  $ hexo server
+```
+
+## deploy
+```bash
+  $ hexo g -d
+```
