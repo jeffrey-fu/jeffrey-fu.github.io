@@ -115,3 +115,35 @@ img: /2021/03/04/Java零基础学习笔记/stepladder.jpg
     }
   }
   ```
+
+- 内部类、Lamda表达式、函数式接口、Lamda表达式
+
+  ```java
+  import java.util.function.*;
+
+  @FunctionalInterface
+  interface IFunction<T> {
+    public void accept(T t);
+  }
+
+  interface IMessage {
+    public void send(String s);
+    public static class InnerClass implements IMessage {
+      public void send(String s) {
+        System.out.println(s);
+      }
+    }
+  }
+
+  public class JavaLearn {
+    public static void main(String[] args) {
+      Consumer<String> console = System.out :: println;
+      IFunction<String> func = (s) -> {
+        console.accept(s);
+      };
+      func.accept("learn java function reference");
+      IMessage m1 = new IMessage.InnerClass();
+      m1.send("learn java inner class");
+    }
+  }
+  ```
