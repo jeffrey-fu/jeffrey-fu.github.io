@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="jeffrey&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="C++" />
+
+
+    <meta name="description" content="
+图片来自网络
+
+边学边记重点：面向对象设计C++翁恺
+
+C++编译运行12$ g++ a.cpp -o a.out -save-temps$ ./a.out
+-save-temps: 编译.i..." />
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+
+    <!--Title-->
+
+
+<title>C++零基础学习笔记 | jeffrey&#39;s blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="jeffrey&#39;s blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Jeffrey Fu'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">jeffrey&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/font-end/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/back-end/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/utils/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/life/"><i class="fa "></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="C++零基础学习笔记">
+            
+	            C++零基础学习笔记
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/back-end/">back-end</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/C/">C++</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2021/06/26</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <img src="/2021/06/26/C++零基础学习笔记/C++.jpeg" title="C++">
+<p><em>图片来自网络</em></p>
+<blockquote>
+<p>边学边记重点：<a href="https://www.bilibili.com/video/BV1yQ4y1A7ts" target="_blank" rel="noopener">面向对象设计C++翁恺</a></p>
+</blockquote>
+<h2 id="C-编译运行"><a href="#C-编译运行" class="headerlink" title="C++编译运行"></a>C++编译运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ g++ a.cpp -o a.out -save-temps</span><br><span class="line">$ ./a.out</span><br></pre></td></tr></table></figure>
+<p><code>-save-temps</code>: 编译<code>.ii</code> -&gt; 汇编<code>.s</code> -&gt; 链接 -&gt; 二进制文件<code>.out</code></p>
+<h2 id="C-内存模型"><a href="#C-内存模型" class="headerlink" title="C++内存模型"></a>C++内存模型</h2><blockquote>
+<p>关键词：变量、指针、引用、全局数据区、堆栈、堆内存</p>
+</blockquote>
+<ul>
+<li><p>C++中分配内存跟对象初始化分开，Java一定是用过<code>new</code>关键字初始化对象后才能获取内存地址。</p>
+</li>
+<li><p>C++全局变量在程序运行，<code>main</code>函数之前被初始化，多个<code>.cpp</code>文件的全局变量初始化是无序的，Java没有全局变量。</p>
+</li>
+<li><p>JavaScript、Java等OOP语言中基本类型值传递，引用类型是引用传递</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 值传递</span></span><br><span class="line"><span class="keyword">const</span> num = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testRef</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num ++;</span><br><span class="line">&#125;</span><br><span class="line">testRef(num);</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 引用传递</span></span><br><span class="line"><span class="keyword">const</span> objA = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testRef</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">testRef(objA);</span><br><span class="line"><span class="built_in">console</span>.log(objA.a); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>C++中默认拷贝一个新的对象，加上<code>&amp;</code>表示引用，通常使用<code>const &amp;</code>限制直接修改被引用的值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Person();</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">&#125;; <span class="comment">// if missing semicolon, compiler throw error</span></span><br><span class="line"></span><br><span class="line">Person::Person(): name(<span class="string">"jeffrey"</span>), age(<span class="number">30</span>) &#123;&#125;;</span><br><span class="line"><span class="keyword">void</span> Person::print() &#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"My name is "</span> &lt;&lt; <span class="keyword">this</span>-&gt;name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;age &lt;&lt; <span class="string">" years old"</span> &lt;&lt;  <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testRef1</span><span class="params">(Person p)</span> </span>&#123;</span><br><span class="line">  p.age = <span class="number">31</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testRef2</span><span class="params">(Person&amp; p)</span> </span>&#123;</span><br><span class="line">  p.age = <span class="number">32</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testRef3</span><span class="params">(<span class="keyword">int</span>&amp; num)</span> </span>&#123;</span><br><span class="line">  num++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Person p1;</span><br><span class="line">  <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">  p1.print(); <span class="comment">// age 30</span></span><br><span class="line">  testRef1(p1);</span><br><span class="line">  p1.print(); <span class="comment">// age 30</span></span><br><span class="line">  testRef2(p1);</span><br><span class="line">  p1.print(); <span class="comment">// age 32</span></span><br><span class="line">  testRef3(num);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// num 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="C-面向对象编程-封装、继承、多态"><a href="#C-面向对象编程-封装、继承、多态" class="headerlink" title="C++面向对象编程(封装、继承、多态)"></a>C++面向对象编程(封装、继承、多态)</h2><h2 id="C-模板、运算符重载"><a href="#C-模板、运算符重载" class="headerlink" title="C++模板、运算符重载"></a>C++模板、运算符重载</h2><h2 id="疑问点"><a href="#疑问点" class="headerlink" title="疑问点"></a>疑问点</h2><ul>
+<li><a href="https://www.bilibili.com/video/BV1yQ4y1A7ts?p=27" target="_blank" rel="noopener">拷贝构造II</a> 5:00<br><code>private</code>是针对类而不是针对对象</li>
+<li><a href="https://www.bilibili.com/video/BV1yQ4y1A7ts?p=35" target="_blank" rel="noopener">模板II</a> 15:00<br>不同<code>.cpp</code>文件根据模板生成的对象是否是同一种类型<code>A&lt;T&gt;</code></li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">jeffrey-fu</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2021/03/04/Java零基础学习笔记/" class="next-post btn btn-default" title='Java零基础学习笔记'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Java零基础学习笔记</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'CkVPLog3biIfwXHlRlPDFBii-gzGzoHsz',
+            appKey: 'EBqROUrgNrg79c7JMnlpBv4a',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-编译运行"><span class="toc-text">C++编译运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-内存模型"><span class="toc-text">C++内存模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-面向对象编程-封装、继承、多态"><span class="toc-text">C++面向对象编程(封装、继承、多态)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-模板、运算符重载"><span class="toc-text">C++模板、运算符重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#疑问点"><span class="toc-text">疑问点</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 50 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
