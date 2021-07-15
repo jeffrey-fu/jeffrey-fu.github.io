@@ -9,7 +9,9 @@ img: /2021/06/26/C++零基础学习笔记/C++.jpeg
 {% asset_img C++.jpeg C++ %}
 *图片来自网络*
 
-> 边学边记重点：[面向对象设计C++翁恺](https://www.bilibili.com/video/BV1yQ4y1A7ts)
+> 语法基础：[面向对象设计C++ 翁恺](https://www.bilibili.com/video/BV1yQ4y1A7ts)
+> 语法进阶：[C++面向对象高级开发 候捷](https://www.bilibili.com/video/BV1yt41157uB)
+> 语法基础：[C++标准库(STL)与泛型编程 候捷](https://www.bilibili.com/video/BV1BX4y1G7bX)
 
 ## C++编译运行
 
@@ -93,9 +95,89 @@ img: /2021/06/26/C++零基础学习笔记/C++.jpeg
   }
   ```
 
+- 指针和引用
+
+  ```c++
+  #include <iostream>
+  using namespace std;
+
+  class Person {
+    public:
+      int age;
+      Person(int &a): age(a) { cout << "Person::Person()" << endl; }
+      ~Person() { cout << "Person::~Person()" << endl; }
+  };
+
+  int main() {
+    int a = 20;
+    int *p = &a;
+    int &r = a;
+    Person person(r);
+    Person *person_pointer = (Person *)&person;
+    cout << person_pointer->age << endl;
+    cout << person_pointer << endl;
+    cout << p << endl;
+    cout << *p << endl;
+    cout << &p << endl;
+    cout << r << endl;
+    cout << &r << endl;
+    return 0;
+  }
+  ```
+
 ## C++面向对象编程(封装、继承、多态)
 
+- 一个类的public部分构成了`interface`
+- C++中子类与父类同名函数不构成`override`，任何其它OOP语言都不这么干
+
+  ```c++
+  #include <iostream>
+  using namespace std;
+
+  class Person {
+    private:
+      string name;
+      int age;
+    public:
+      Person(string n, int a): name(n), age(a) {}
+      string getName() { return this->name; }
+      void print() { cout << "My name: " << name << ", My age: " << age << endl; }
+      void print(string x) { cout << x << endl; print(); }
+  };
+
+  class Student : public Person {
+    private:
+      string school;
+    public:
+      Student(string n, int a, string s): Person(n, a), school(s) {}
+      void print() { cout << "My name: " << getName() << ", My school: " << school << endl; }
+  };
+
+  int main() {
+    Student s("jeffrey", 30, "zju");
+    // s.print("x"); error hidden
+    s.print();
+    s.Person::print("x");
+  }
+  ```
+
 ## C++模板、运算符重载
+
+- C++模板（泛型）
+  ```c++
+  #include <iostream>
+  using namespace std;
+
+  template <class T>
+  T add(T num1, T num2) {
+    return num1 + num2;
+  }
+
+  int r1 = add(1, 2);
+  float r2 = add(1.1, 2.2);
+
+  cout << r1 << r2 << endl;
+  ```
 
 ## 疑问点
 - [拷贝构造II](https://www.bilibili.com/video/BV1yQ4y1A7ts?p=27) 5:00
